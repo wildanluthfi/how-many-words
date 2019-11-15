@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Read Fast!</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+        <h1 id="word" style="margin-bottom: 150px;">hello</h1>
+        <div class="flex-row w-100 text-center" style="font-size: 140%;">
+            <span>60</span>
+            <input class="custom-range w-75" type="range" id="speed-range" min="60" max="600" step="1">
+            <span>600</span>
+        </div>
+        <h3 id="wpm" class="mt-3">220</h3>
+        <h5>Words Per Minute</h5>
+    </div>
+
+    <script type="text/javascript">
+        word = document.getElementById('word');
+        speedRange = document.getElementById('speed-range');
+        speedRange.value = 220;
+        wpm = document.getElementById('wpm');
+
+        words = `Sunset is the time of day when our sky meets the outer space solar winds. There are blue, pink, and purple swirls, spinning and twisting, like clouds of balloons caught in a whirlwind. The sun moves slowly to hide behind the line of horizon, while the moon races to take its place in prominence atop the night sky. People slow to a crawl, entranced, fully forgetting the deeds that must still be done. There is a coolness, a calmness, when the sun does set.`;
+        words = words.split(" ");
+
+        i=0
+        speed = (60 / 220) * 1000;
+        setWord = setInterval(() => {
+            word.innerHTML = words[i % words.length];
+            i++
+        }, speed);
+
+        speedRange.addEventListener('input', () => {
+            speed = speedRange.value
+
+            wpm.innerHTML = speed;
+
+            clearInterval(setWord);
+
+            speed =  60000 / speedRange.value
+            setWord = setInterval(() => {
+                word.innerHTML = words[i % words.length - 1];
+                i++
+            }, speed);
+        })
+
+        
+
+
+
+
+    </script>
+</body>
+</html>
